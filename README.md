@@ -48,15 +48,6 @@ roslaunch orb_slam3_ros ntuviral_mono.launch
 # In another terminal:
 rosbag play eee_01.bag -s 50 # The UAV starts moving at t~50s
 ```
-### Stereo mode with [KITTI](https://www.cvlibs.net/datasets/kitti/index.php)'s [`2011_09_26`](https://www.cvlibs.net/datasets/kitti/raw_data.php):
-- First, download KITTI dataset and convert the raw data into bag file following [this instruction](https://stevenliu216.github.io/2018/08/05/working-with-kitti-ros/). You can automate the downloading process using [this script](https://github.com/Deepak3994/Kitti-Dataset).
-- Run the example:
-```
-# In one terminal:
-roslaunch orb_slam3_ros kitti_stereo.launch
-# In another terminal:
-rosbag play kitti_2011_09_26_drive_0002_synced.bag
-```
 
 ### Mono-inertial mode with [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets)'s [`MH_01_easy.bag`]( http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag):
 ```
@@ -81,27 +72,6 @@ rosbag play rgbd_dataset_freiburg1_xyz.bag
 ```
 - **Note**: change `TUMX.yaml` to `TUM1.yaml`,`TUM2.yaml` or `TUM3.yaml` for freiburg1, freiburg2 and freiburg3 sequences respectively.
 
-### RGB-D-Inertial mode with [VINS-RGBD](https://github.com/STAR-Center/VINS-RGBD)'s [`Normal.bag`](https://vision.in.tum.de/rgbd/dataset/freiburg1/rgbd_dataset_freiburg1_xyz.bag)
-- Download the bag files, for example [Normal.bag](https://star-center.shanghaitech.edu.cn/seafile/d/0ea45d1878914077ade5/).
-- Decompress the bag, run `rosbag decompress Normal.bag`.
-- Change the calibration params in `RealSense_D435i.yaml` if necessary.
-```
-# In one terminal:
-roslaunch orb_slam3_ros rs_d435i_rgbd_inertial.launch.launch
-# In another terminal:
-rosbag play Normal.bag
-```
-
-### Live stereo-inertial mode with Realsense T265
-- Modify the original `rs_t265.launch` to enable fisheye images and imu data (change `unite_imu_method` to `linear_interpolation`).
-- Run `rs-enumerate-devices -c` to get the calibration parameters and modify `config/Stereo-Inertial/RealSense_T265.yaml` accordingly. A detailed explaination can be found [here](https://github.com/shanpenghui/ORB_SLAM3_Fixed#73-set-camera-intrinsic--extrinsic-parameters).
-- Run:
-```
-# In one terminal:
-roslaunch realsense2_camera rs_t265.launch
-# In another terminal:
-roslaunch orb_slam3_ros rs_t265_stereo_inertial.launch
-```
 
 ### Save and load map 
 
@@ -135,23 +105,3 @@ rosservice call /orb_slam3/save_map [file_name]
 - `voc_file`: path to vocabulary file required by ORB-SLAM3
 - `settings_file`: path to settings file required by ORB-SLAM3
 - `enable_pangolin`: enable/disable ORB-SLAM3's Pangolin viewer and interface. (`true` by default)
-
-### Services
-- `rosservice call /orb_slam3/save_map [file_name]`: save the map as `[file_name].osa` in `ROS_HOME` folder.
-- `rosservice call /orb_slam3/save_traj [file_name]`: save the estimated trajectory of camera and keyframes as `[file_name]_cam_traj.txt` and  `[file_name]_kf_traj.txt` in `ROS_HOME` folder.
-
-### Docker
-Provided [Dockerfile](Dockerfile) sets up an image based a ROS noetic environment including RealSense SDK
-
-To access a USB device (such as RealSense camera) inside docker container use:
-``` bash
-docker run --network host --privileged -v /dev:/dev -it [image_name]
-```
-
-> **_NOTE:_**  `--network host` is recommended to listen to rostopics outside the container
-
-## To-do:
-- ~~Publish basic topics (camera pose, tracking image and point cloud)~~
-- ~~Publish more topics (odom, full map pointcloud, keyframe, etc.)~~
-- ~~Add other functions as services (map save/load, save estimated trajectory, etc.)~~
-- ~~Add docker support~~
