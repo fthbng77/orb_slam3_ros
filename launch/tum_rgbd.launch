@@ -4,8 +4,8 @@
     <!-- Main node -->
     <node name="orb_slam3" pkg="orb_slam3_ros" type="ros_rgbd" output="screen">
         <!-- change the topics according to the dataset -->
-        <remap from="/camera/rgb/image_raw"    to="/camera/rgb/image_color"/>
-        <remap from="/camera/depth_registered/image_raw"   to="/camera/depth/image"/>
+        <remap from="/camera/rgb/image_raw"    to="/camera/color/image_raw"/>
+        <remap from="/camera/depth_registered/image_raw"   to="/camera/aligned_depth_to_color/image_raw"/>
 
         <!-- Parameters for original ORB-SLAM3 -->
         <param name="voc_file"      type="string" value="$(find orb_slam3_ros)/orb_slam3/Vocabulary/ORBvoc.txt.bin"/>

@@ -4,11 +4,11 @@
     <!-- Main node -->
     <node name="orb_slam3" pkg="orb_slam3_ros" type="ros_mono" output="screen">
         <!-- change the topics according to the dataset -->
-        <remap from="/camera/image_raw" to="/cam0/image_raw"/>
+        <remap from="/camera/image_raw" to="/webcam/image_raw"/>
 
         <!-- Parameters for original ORB-SLAM3 -->
         <param name="voc_file"      type="string" value="$(find orb_slam3_ros)/orb_slam3/Vocabulary/ORBvoc.txt.bin"/>
-        <param name="settings_file" type="string" value="$(find orb_slam3_ros)/config/Monocular/EuRoC.yaml"/>
+        <param name="settings_file" type="string" value="$(find orb_slam3_ros)/config/Monocular/gazebo.yaml"/>
 
         <!-- Parameters for ROS -->
         <param name="world_frame_id"    type="string"   value="world" />
@@ -26,4 +26,7 @@
         <param name="/trajectory_update_rate" value="20.0" />
         <param name="/trajectory_publish_rate" value="20.0" />
     </node>
+    
+    <!-- /world ve /camera arası dönüşüm -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_camera_tf" args="0 0 0 0 0 0 1 world camera"/>
 </launch>
