@@ -37,7 +37,14 @@ git clone https://github.com/fthbng77/orb_slam3_ros.git
 cd ../
 catkin build
 ```
-## 3. ROS topics, params and services
+## 3. Run
+Monocular
+
+```
+roslaunch orb_slam3_ros mono_compressed.launch
+```
+
+## 4. ROS topics, params and services
 ### Subscribed topics
 - `/camera/image_raw` for Mono(-Inertial) node
 - `/camera/left/image_raw` for Stereo(-Inertial) node
