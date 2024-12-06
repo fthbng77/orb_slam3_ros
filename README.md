@@ -57,7 +57,18 @@ Install `hector-trajectory-server` to visualize the real-time trajectory of the 
 ```
 sudo apt install ros-[DISTRO]-hector-trajectory-server
 ```
-## 2. Installation
+## 2. Installation ORBSLAM3 and ORBSLAM3 ROS
+### ORBSLAM3
+```
+# Clone the repo:
+git clone https://github.com/thien94/ORB_SLAM3.git ORB_SLAM3
+
+# Build
+cd ORB_SLAM3
+chmod +x build.sh
+./build.sh
+```
+### ORBSLAM3 ROS
 ```
 cd ~/catkin_ws/src
 git clone https://github.com/fthbng77/orb_slam3_ros.git
