@@ -33,60 +33,11 @@ sudo apt install ros-[DISTRO]-hector-trajectory-server
 ## 2. Installation
 ```
 cd ~/catkin_ws/src
-git clone https://github.com/thien94/orb_slam3_ros.git
+git clone https://github.com/fthbng77/orb_slam3_ros.git
 cd ../
 catkin build
 ```
-
-## 3. Run Examples
-
-### Mono mode with [NTU VIRAL](https://ntu-aris.github.io/ntu_viral_dataset/)'s [`eee_01.bag`](https://researchdata.ntu.edu.sg/api/access/datafile/68133):
-
-```
-# In one terminal:
-roslaunch orb_slam3_ros ntuviral_mono.launch
-# In another terminal:
-rosbag play eee_01.bag -s 50 # The UAV starts moving at t~50s
-```
-
-### Mono-inertial mode with [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets)'s [`MH_01_easy.bag`]( http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag):
-```
-# In one terminal:
-roslaunch orb_slam3_ros euroc_mono_inertial.launch
-# In another terminal:
-rosbag play MH_01_easy.bag
-```
-### Stereo-inertial mode with [TUM-VI](https://vision.in.tum.de/data/datasets/visual-inertial-dataset)'s [`dataset-corridor1_512_16.bag`](https://vision.in.tum.de/tumvi/calibrated/512_16/dataset-corridor1_512_16.bag)
-```
-# In one terminal:
-roslaunch orb_slam3_ros tum_vi_stereo_inertial.launch
-# In another terminal:
-rosbag play dataset-corridor1_512_16.bag
-```
-### RGB-D mode with [TUM](http://vision.in.tum.de/data/datasets/rgbd-dataset/download)'s [`rgbd_dataset_freiburg1_xyz.bag`](https://vision.in.tum.de/rgbd/dataset/freiburg1/rgbd_dataset_freiburg1_xyz.bag)
-```
-# In one terminal:
-roslaunch orb_slam3_ros tum_rgbd.launch
-# In another terminal:
-rosbag play rgbd_dataset_freiburg1_xyz.bag
-```
-- **Note**: change `TUMX.yaml` to `TUM1.yaml`,`TUM2.yaml` or `TUM3.yaml` for freiburg1, freiburg2 and freiburg3 sequences respectively.
-
-
-### Save and load map 
-
-The map file will have `.osa` extension, and is located in the `ROS_HOME` folder (`~/.ros/` by default).
-#### Load map:
-- Set the name of the map file to be loaded with `System.LoadAtlasFromFile` param in the settings file (`.yaml`).
-- If the map file is not available, `System.LoadAtlasFromFile` param should be commented out otherwise there will be error.
-#### Save map:
-- **Option 1**: If `System.SaveAtlasToFile` is set in the settings file, the map file will be automatically saved when you kill the ros node.
-- **Option 2**: You can also call the following ros service at the end of the session
-```
-rosservice call /orb_slam3/save_map [file_name]
-```
-
-## 4. ROS topics, params and services
+## 3. ROS topics, params and services
 ### Subscribed topics
 - `/camera/image_raw` for Mono(-Inertial) node
 - `/camera/left/image_raw` for Stereo(-Inertial) node
