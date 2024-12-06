@@ -4,6 +4,22 @@ A ROS implementation of [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3) V1.
 
 This package uses ```catkin build```. Tested on Ubuntu 20.04.
 ## 1. Prerequisites
+
+### Dependencies
+```
+sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+sudo apt update
+
+sudo apt-get install build-essential
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+
+sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev libjasper-dev
+
+sudo apt-get install libglew-dev libboost-all-dev libssl-dev
+
+sudo apt install libeigen3-dev
+```
+
 ### Eigen3
 ```
 sudo apt install libeigen3-dev
@@ -19,12 +35,23 @@ make
 sudo make install
 ```
 ### OpenCV
-Check the OpenCV version on your computer (required [at least 3.0](https://github.com/UZ-SLAMLab/ORB_SLAM3)):
+
+Check the OpenCV version on your computer (required at leat 3.0 as stated in the original `README.md`):
 ```
 python3 -c "import cv2; print(cv2.__version__)" 
 ```
-On a freshly installed Ubuntu 20.04.4 LTS with desktop image, OpenCV 4.2.0 is already included. If a newer version is required (>= 3.0), follow [installation instruction](https://docs.opencv.org/4.x/d0/d3d/tutorial_general_install.html) and change the corresponding OpenCV version in `CMakeLists.txt`
+For example, the main commands for OpenCV 4.5.1 without CUDA and other bells and whistles:
+```
+git clone https://github.com/opencv/opencv
+git -C opencv checkout 4.5.1
 
+cd opencv
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+```
 ### (Optional) `hector-trajectory-server`
 Install `hector-trajectory-server` to visualize the real-time trajectory of the camera/imu. Note that this real-time trajectory might not be the same as the keyframes' trajectory.
 ```
