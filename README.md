@@ -38,7 +38,7 @@ cd ../
 catkin build
 ```
 ## 3. Run
-Monocular
+### Monocular
 
 ```
 roslaunch orb_slam3_ros mono_compressed.launch
